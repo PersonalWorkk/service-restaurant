@@ -39,22 +39,48 @@ public class RestaurantService {
             .orElseThrow(() -> new RestaurantNotFoundException(id));
     }
 
+    // Update restaurant field by field
     @Transactional
-    public Restaurant updateRestaurant(RestaurantDTO restaurantDTO, Long id){
-        return restaurantRepository.findById(id)
-            .map(restaurant -> {
-                restaurant.setAddress(restaurantDTO.getAddress());
-                restaurant.setCity(restaurantDTO.getCity());
-                restaurant.setPhoneNumber(restaurantDTO.getPhoneNumber());
-                restaurant.setPostalCode(restaurantDTO.getPostalCode());
-                restaurant.setWorkingHours(restaurantDTO.getWorkingHours());
-                return restaurantRepository.save(restaurant);
-            })
-            .orElseGet(() -> {
-                Restaurant restaurant = restaurantDTO.convert2Restaurant();
-                restaurant.setId(id);
-                return restaurantRepository.save(restaurant);
-            });
+    public Restaurant updateRestaurantName(RestaurantDTO restaurantDTO, Long id){
+        Restaurant restaurant = restaurantRepository.findById(id)
+            .orElseThrow(() -> new RestaurantNotFoundException(id));
+        restaurant.setName(restaurantDTO.getName());
+        return restaurantRepository.save(restaurant);
+    }
+    @Transactional
+    public Restaurant updateRestaurantCity(RestaurantDTO restaurantDTO, Long id){
+        Restaurant restaurant = restaurantRepository.findById(id)
+            .orElseThrow(() -> new RestaurantNotFoundException(id));
+        restaurant.setCity(restaurantDTO.getCity());
+        return restaurantRepository.save(restaurant);
+    }
+    @Transactional
+    public Restaurant updateRestaurantAddress(RestaurantDTO restaurantDTO, Long id){
+        Restaurant restaurant = restaurantRepository.findById(id)
+            .orElseThrow(() -> new RestaurantNotFoundException(id));
+        restaurant.setAddress(restaurantDTO.getAddress());
+        return restaurantRepository.save(restaurant);
+    }
+    @Transactional
+    public Restaurant updateRestaurantPostalCode(RestaurantDTO restaurantDTO, Long id){
+        Restaurant restaurant = restaurantRepository.findById(id)
+            .orElseThrow(() -> new RestaurantNotFoundException(id));
+        restaurant.setPostalCode(restaurantDTO.getPostalCode());
+        return restaurantRepository.save(restaurant);
+    }
+    @Transactional
+    public Restaurant updateRestaurantWorkingHours(RestaurantDTO restaurantDTO, Long id){
+        Restaurant restaurant = restaurantRepository.findById(id)
+            .orElseThrow(() -> new RestaurantNotFoundException(id));
+        restaurant.setWorkingHours(restaurantDTO.getWorkingHours());
+        return restaurantRepository.save(restaurant);
+    }
+    @Transactional
+    public Restaurant updateRestaurantPhoneNumber(RestaurantDTO restaurantDTO, Long id){
+        Restaurant restaurant = restaurantRepository.findById(id)
+            .orElseThrow(() -> new RestaurantNotFoundException(id));
+        restaurant.setPhoneNumber(restaurantDTO.getPhoneNumber());
+        return restaurantRepository.save(restaurant);
     }
 
     @Transactional

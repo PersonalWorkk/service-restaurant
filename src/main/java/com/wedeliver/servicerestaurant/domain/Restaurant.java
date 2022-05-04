@@ -48,6 +48,9 @@ public class Restaurant {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+    public void setName(String name) {
+        this.name = name;
+    }
     public void setId(Long id) {
         this.id = id;
     }

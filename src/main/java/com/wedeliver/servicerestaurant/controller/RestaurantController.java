@@ -42,9 +42,25 @@ public class RestaurantController {
         return restaurantService.findById(id);
     }
 
+    // Update restaurant field by field
     @PutMapping("/api/restaurants/{id}")
-    public Restaurant updateRestaurant(@RequestBody RestaurantDTO restaurantDTO, @PathVariable Long id){
-        return restaurantService.updateRestaurant(restaurantDTO, id);
+    public Restaurant updateRestaurantName(@RequestBody RestaurantDTO restaurantDTO, @PathVariable Long id){
+        if (restaurantDTO.getName() != null){
+            return restaurantService.updateRestaurantName(restaurantDTO, id);
+        } 
+        if (restaurantDTO.getAddress() != null){
+            return restaurantService.updateRestaurantAddress(restaurantDTO, id);
+        }
+        if (restaurantDTO.getCity() != null){
+            return restaurantService.updateRestaurantCity(restaurantDTO, id);
+        }
+        if (restaurantDTO.getPhoneNumber() != null){
+            return restaurantService.updateRestaurantPhoneNumber(restaurantDTO, id);
+        }
+        if (restaurantDTO.getPostalCode() != null){
+            return restaurantService.updateRestaurantPostalCode(restaurantDTO, id);
+        }
+        return restaurantService.updateRestaurantWorkingHours(restaurantDTO, id);
     }
 
     @DeleteMapping("/api/restaurants/{id}")
