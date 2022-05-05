@@ -1,8 +1,12 @@
 package com.wedeliver.servicerestaurant.controller;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
+import com.wedeliver.servicerestaurant.domain.Item;
 import com.wedeliver.servicerestaurant.domain.Restaurant;
+import com.wedeliver.servicerestaurant.gateways.ItemDTO;
 import com.wedeliver.servicerestaurant.gateways.RestaurantDTO;
 import com.wedeliver.servicerestaurant.payroll.RestaurantNotFoundException;
 import com.wedeliver.servicerestaurant.service.RestaurantService;
@@ -38,13 +42,13 @@ public class RestaurantController {
     }
 
     @GetMapping("/api/restaurants/{id}")
-    public Restaurant one(@PathVariable Long id){
-        return restaurantService.findById(id);
+    public ResponseEntity<Restaurant> one(@PathVariable Long id){
+        return new ResponseEntity<Restaurant>(restaurantService.findById(id), HttpStatus.FOUND);
     }
 
     // Update restaurant field by field
     @PutMapping("/api/restaurants/{id}")
-    public Restaurant updateRestaurantName(@RequestBody RestaurantDTO restaurantDTO, @PathVariable Long id){
+    public Restaurant updateRestaurant(@RequestBody RestaurantDTO restaurantDTO, @PathVariable Long id){
         if (restaurantDTO.getName() != null){
             return restaurantService.updateRestaurantName(restaurantDTO, id);
         } 
@@ -66,6 +70,16 @@ public class RestaurantController {
     @DeleteMapping("/api/restaurants/{id}")
     public void deleteRestaurant(@PathVariable Long id){
         restaurantService.deleteRestaurant(id);
+    }
+
+    @PutMapping("/api/restaurants/{id}/items")
+    public void updateRestaurantItems(@RequestBody ItemDTO itemDTO, @PathVariable Long id){
+        restaurantService.updateRestaurantItem(itemDTO, id);
+    }
+
+    @GetMapping("/api/restaurants/{id}/items")
+    public Set<Item> allItems(@PathVariable Long id){
+        return restaurantService.getAllItemsByRestaurantId(id);
     }
     
 }

@@ -1,10 +1,16 @@
 package com.wedeliver.servicerestaurant.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
+import com.wedeliver.servicerestaurant.domain.Item;
 import com.wedeliver.servicerestaurant.domain.Restaurant;
+import com.wedeliver.servicerestaurant.gateways.ItemDTO;
 import com.wedeliver.servicerestaurant.gateways.RestaurantDTO;
 import com.wedeliver.servicerestaurant.payroll.RestaurantNotFoundException;
+import com.wedeliver.servicerestaurant.repository.ItemRepository;
 import com.wedeliver.servicerestaurant.repository.RestaurantRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +21,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class RestaurantService {
     @Autowired
     private RestaurantRepository restaurantRepository;
-
+    @Autowired
+    private ItemRepository itemRepository;
     public RestaurantService(){}
-    public RestaurantService(RestaurantRepository restaurantRepository){
+    public RestaurantService(RestaurantRepository restaurantRepository, ItemRepository itemRepository){
         this.restaurantRepository = restaurantRepository;
+        this.itemRepository = itemRepository;
     }
 
     @Transactional
@@ -86,5 +94,22 @@ public class RestaurantService {
     @Transactional
     public void deleteRestaurant(Long id){
         restaurantRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void updateRestaurantItem(ItemDTO itemDTO, Long id){
+        Restaurant restaurant = restaurantRepository.findById(id)
+            .orElseThrow(() -> new RestaurantNotFoundException(id));
+        // Create the item database entry
+        Item item = itemDTO.convert2Item(restaurant);
+        itemRepository.save(item);
+        restaurant.addItem(item);
+    }
+
+    @Transactional
+    public Set<Item> getAllItemsByRestaurantId(Long id){
+        Restaurant restaurant = restaurantRepository.findById(id)
+            .orElseThrow(() -> new RestaurantNotFoundException(id));
+        return restaurant.getItems();
     }
 }

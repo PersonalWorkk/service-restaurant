@@ -1,8 +1,11 @@
 package com.wedeliver.servicerestaurant.domain;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +20,9 @@ public class Restaurant {
     private String postalCode;
     private String workingHours; // maybe use Time type
     private String phoneNumber;
-    
+    @OneToMany(mappedBy = "restaurant")
+    private Set<Item> items;
+
     public Restaurant(){}
     public Restaurant(String name, String city, String address, String postalCode, String workingHours, String phoneNumber){
         this.name = name;
@@ -48,6 +53,9 @@ public class Restaurant {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+    public Set<Item> getItems() {
+        return items;
+    }
     public void setName(String name) {
         this.name = name;
     }
@@ -68,5 +76,12 @@ public class Restaurant {
     }
     public void setWorkingHours(String workingHours) {
         this.workingHours = workingHours;
+    }
+    public void setItems(Set<Item> items) {
+        this.items = items;
+    }
+    
+    public void addItem(Item item){
+        this.items.add(item);
     }
 }
