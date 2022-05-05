@@ -18,7 +18,6 @@ public class Item {
     @ManyToOne
     @JoinColumn(name="restaurant_id", nullable=false)
     private Restaurant restaurant;
-    // private String category; // make this an enum
 
     public Item(){}
     public Item(String name, Float price, Restaurant restaurant){
@@ -48,7 +47,4 @@ public class Item {
     public void setPrice(Float price) {
         this.price = price;
     }
-    // public void setRestaurant(Restaurant restaurant) {
-    //     this.restaurant = restaurant;
-    // }
 }

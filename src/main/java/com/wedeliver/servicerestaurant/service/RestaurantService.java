@@ -1,8 +1,6 @@
 package com.wedeliver.servicerestaurant.service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import com.wedeliver.servicerestaurant.domain.Item;

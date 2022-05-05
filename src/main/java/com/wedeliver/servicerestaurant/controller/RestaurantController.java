@@ -1,14 +1,12 @@
 package com.wedeliver.servicerestaurant.controller;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import com.wedeliver.servicerestaurant.domain.Item;
 import com.wedeliver.servicerestaurant.domain.Restaurant;
 import com.wedeliver.servicerestaurant.gateways.ItemDTO;
 import com.wedeliver.servicerestaurant.gateways.RestaurantDTO;
-import com.wedeliver.servicerestaurant.payroll.RestaurantNotFoundException;
 import com.wedeliver.servicerestaurant.service.RestaurantService;
 
 import org.springframework.beans.factory.annotation.Autowired;
