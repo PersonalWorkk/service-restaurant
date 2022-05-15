@@ -6,6 +6,7 @@ import java.util.Set;
 import com.wedeliver.servicerestaurant.domain.Item;
 import com.wedeliver.servicerestaurant.domain.Restaurant;
 import com.wedeliver.servicerestaurant.gateways.ItemDTO;
+import com.wedeliver.servicerestaurant.gateways.OrderDTO;
 import com.wedeliver.servicerestaurant.gateways.RestaurantDTO;
 import com.wedeliver.servicerestaurant.service.RestaurantService;
 
@@ -78,6 +79,16 @@ public class RestaurantController {
     @GetMapping("/api/restaurants/{id}/items")
     public Set<Item> allItems(@PathVariable Long id){
         return restaurantService.getAllItemsByRestaurantId(id);
+    }
+    
+    @PostMapping("/api/restaurant/{id}/orders")
+    public ResponseEntity<String> createOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO) {
+        // calculate total order price
+        orderDTO.calculateTotalPrice();
+        // get the restaurant by id and set it for the order
+        orderDTO.setRestaurant(restaurantService.findById(id));
+        // send the dto object through the message bus to the order microservice
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
     
 }
