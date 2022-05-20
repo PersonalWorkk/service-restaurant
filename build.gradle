@@ -2,6 +2,9 @@ plugins {
 	id 'org.springframework.boot' version '2.6.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'jacoco'
+    id 'org.sonarqube' version "3.0"
+
 }
 
 group = 'com.wedeliver'
@@ -19,6 +22,31 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
+jacoco {
+    toolVersion = "0.8.5"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+        xml.destination file("${buildDir}/jacoco/jacoco.xml")
+    }
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "PersonalWorkk_service-restaurant"
+        property "sonar.organization", "we-deliver"
+        property "sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/jacoco/jacoco.xml"
+        property "sonar.junit.reportPath", "${buildDir}/test-results/*/TEST-*.xml"
+    }
+}
+
