@@ -8,6 +8,7 @@ services:
       - "8080:8080"
     depends_on:
       - dbpostgresql
+      - rabbitmq
   dbpostgresql:
     image: postgres
     ports:
@@ -16,3 +17,8 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=postgres
       - POSTGRES_DB=restaurant
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
