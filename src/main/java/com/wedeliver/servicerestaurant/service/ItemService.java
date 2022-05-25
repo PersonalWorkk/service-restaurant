@@ -1,7 +1,6 @@
 package com.wedeliver.servicerestaurant.service;
 
 import com.wedeliver.servicerestaurant.domain.Item;
-import com.wedeliver.servicerestaurant.domain.Restaurant;
 import com.wedeliver.servicerestaurant.gateways.ItemDTO;
 import com.wedeliver.servicerestaurant.payroll.ItemNotFoundException;
 import com.wedeliver.servicerestaurant.payroll.RestaurantNotFoundException;
@@ -26,17 +25,15 @@ public class ItemService {
 
     @Transactional
     public void deleteItem(Long restaurantId, Long itemId){
-        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+        restaurantRepository.findById(restaurantId)
             .orElseThrow(() -> new RestaurantNotFoundException(restaurantId));
         // In case restaurant doesn`t exist show an explicit message instead of server error
-        if (restaurant != null){
-            itemRepository.deleteById(itemId);
-        }
+        itemRepository.deleteById(itemId);
     }
 
     @Transactional
     public Item updateItemPrice(ItemDTO itemDTO, Long restaurantId, Long itemId){
-        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+        restaurantRepository.findById(restaurantId)
             .orElseThrow(() -> new RestaurantNotFoundException(restaurantId));
         // In case restaurant doesn`t exist show an explicit message instead of server error
         Item item = itemRepository.findById(itemId)
@@ -47,7 +44,7 @@ public class ItemService {
 
     @Transactional
     public Item updateItemName(ItemDTO itemDTO, Long restaurantId, Long itemId){
-        Restaurant restaurant = restaurantRepository.findById(restaurantId)
+        restaurantRepository.findById(restaurantId)
             .orElseThrow(() -> new RestaurantNotFoundException(restaurantId));
         // In case restaurant doesn`t exist show an explicit message instead of server error
         Item item = itemRepository.findById(itemId)

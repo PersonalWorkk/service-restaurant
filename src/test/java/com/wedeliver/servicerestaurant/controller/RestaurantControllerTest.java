@@ -6,6 +6,7 @@ import com.wedeliver.servicerestaurant.service.RestaurantService;
 import org.springframework.http.MediaType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -27,6 +28,10 @@ public class RestaurantControllerTest {
 
     @MockBean
     private RestaurantService restaurantService;
+
+    @MockBean
+    private RabbitTemplate rabbitTemplate;
+    
 
     @Test
     public void getAllRestaurants()throws Exception{
