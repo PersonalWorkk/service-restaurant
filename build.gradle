@@ -40,7 +40,7 @@ jacocoTestReport {
 
 tasks.named('test') {
 	useJUnitPlatform()
-    // test.finalizedBy('snyk-test')
+    test.finalizedBy('snyk-test')
 }
 
 sonarqube {
