@@ -1,6 +1,18 @@
-FROM openjdk:8-jdk-alpine
-VOLUME /tmp
-EXPOSE 8082
-ARG JAR_FILE=build/libs/service-restaurant-0.0.1-SNAPSHOT.jar
-ADD ${JAR_FILE} service-restaurant.jar
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/service-restaurant-0.0.1-SNAPSHOT.jar"]
+FROM openjdk:16-alpine3.13
+
+
+RUN apk update && apk add bash
+
+
+WORKDIR /app
+
+
+COPY gradle/ gradle
+
+COPY gradlew build.gradle settings.gradle ./
+
+COPY src ./src
+
+RUN ./gradlew assemble
+
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","build/libs/service-restaurant-0.0.1-SNAPSHOT.jar"]
