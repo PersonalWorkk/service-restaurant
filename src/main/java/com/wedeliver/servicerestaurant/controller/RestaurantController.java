@@ -8,8 +8,10 @@ import com.wedeliver.servicerestaurant.domain.Restaurant;
 import com.wedeliver.servicerestaurant.gateways.ItemDTO;
 import com.wedeliver.servicerestaurant.gateways.OrderDTO;
 import com.wedeliver.servicerestaurant.gateways.RestaurantDTO;
+import com.wedeliver.servicerestaurant.rabbitmq.config.MessagingConfig;
 import com.wedeliver.servicerestaurant.service.RestaurantService;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,9 @@ public class RestaurantController {
     @Autowired
     private RestaurantService restaurantService;
     
+    @Autowired
+    private RabbitTemplate template;
+
     @GetMapping("/api/restaurants")
     public List<Restaurant> all(){
         return restaurantService.findAll();
@@ -88,6 +93,8 @@ public class RestaurantController {
         // get the restaurant by id and set it for the order
         orderDTO.setRestaurant(restaurantService.findById(id));
         // send the dto object through the message bus to the order microservice
+        // Is it a good idea to store all created order in the same database in the order service?
+        template.convertAndSend(MessagingConfig.EXCHANGE, MessagingConfig.ROUTING_KEY, orderDTO);        
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     
