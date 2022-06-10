@@ -1,19 +1,19 @@
 apiVersion : apps/v1
 kind: Deployment
 metadata:
-  name: personalworkkservicerestaurant 
+  name: servicerestaurant-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: personalworkkservicerestaurant
+      app: servicerestaurant
   template:
     metadata:
       labels:
-        app: personalworkkservicerestaurant 
+        app: servicerestaurant 
     spec:
       containers:
-        - name: personalworkkservicerestaurant 
-          image: razvan426823wedeliver.azurecr.io/personalworkkservicerestaurant
+        - name: servicerestaurant 
+          image: razvan426823wedeliver.azurecr.io/pservicerestaurant
           ports:
-          - containerPort: 80
+          - containerPort: 8080
