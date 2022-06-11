@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: servicerestaurant 
-          image: razvan426823wedeliver.azurecr.io/pservicerestaurant
+          image: razvan426823wedeliver.azurecr.io/servicerestaurant
           imagePullPolicy: Always
           env:
             - name: SPRING_PROFILES_ACTIVE

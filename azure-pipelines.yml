@@ -12,7 +12,7 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '6ac41091-2b5c-45a6-8899-0bad99da7543'
-  imageRepository: 'personalworkkservicerestaurant'
+  imageRepository: 'servicerestaurant'
   containerRegistry: 'razvan426823wedeliver.azurecr.io'
   dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
