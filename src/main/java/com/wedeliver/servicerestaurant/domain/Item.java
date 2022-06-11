@@ -38,6 +38,9 @@ public class Item {
     public Long getRestaurantId() {
         return restaurant.getId();
     }
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
     public void setId(Long id) {
         this.id = id;
     }

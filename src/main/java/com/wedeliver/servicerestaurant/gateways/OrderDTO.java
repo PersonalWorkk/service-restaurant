@@ -56,6 +56,14 @@ public class OrderDTO {
     }
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+        // create the relation between items and restaurant
+        this.setRestaurantForItems(restaurant);
+    }
+
+    private void setRestaurantForItems(Restaurant restaurant){
+        for (Item item : items) {
+            item.setRestaurant(restaurant);
+        }
     }
 
     public void calculateTotalPrice(){
