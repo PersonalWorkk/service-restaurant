@@ -86,7 +86,7 @@ public class RestaurantController {
         return restaurantService.getAllItemsByRestaurantId(id);
     }
     
-    @PostMapping("/api/restaurant/{id}/orders")
+    @PostMapping("/api/restaurants/{id}/orders")
     public ResponseEntity<String> createOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO) {
         // calculate total order price
         orderDTO.calculateTotalPrice();

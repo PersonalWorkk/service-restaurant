@@ -21,4 +21,4 @@ spec:
               value: prod
             - name: SPRING
           ports:
-          - containerPort: 8080
+          - containerPort: 8082
